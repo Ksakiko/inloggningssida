@@ -1,6 +1,6 @@
 const mainContainer = document.getElementById("main");
 
-// ----------------------------------------- //
+// Login From
 
 const formEl = document.createElement("form");
 formEl.setAttribute("id", "login-form");
@@ -29,7 +29,6 @@ submitButtonEl.innerText = "Logga in";
 formEl.appendChild(usernameInputEl);
 formEl.appendChild(passwordInputEl);
 formEl.appendChild(submitButtonEl);
-mainContainer.appendChild(formEl);
 
 const registeredUserName = "test";
 const registeredPassword = "1234";
@@ -47,4 +46,29 @@ const handleSubmit = (event) => {
 
 submitButtonEl.addEventListener("click", (event) => handleSubmit(event));
 
-// ----------------------------------------- //
+// Login Page
+
+const loginPage = document.createElement("div");
+loginPage.classList.add("login-page");
+
+const loginPageTitle = document.createElement("h1");
+loginPageTitle.classList.add("login-page__title");
+loginPageTitle.innerText = "Logga In";
+
+const loginFormContainer = document.createElement("section");
+loginFormContainer.classList.add("login-page__form");
+
+const loginPageHero = document.createElement("section");
+loginPageHero.classList.add("login-page__hero");
+
+const heroImage = document.createElement("img");
+heroImage.classList.add("login-page__hero-image");
+heroImage.setAttribute("src", "images/hero.jpg");
+
+loginFormContainer.appendChild(loginPageTitle);
+loginFormContainer.appendChild(formEl);
+loginPageHero.appendChild(heroImage);
+loginPage.appendChild(loginFormContainer);
+loginPage.appendChild(loginPageHero);
+
+mainContainer.appendChild(loginPage);

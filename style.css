@@ -1,0 +1,8 @@
+.login-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.login-page__hero-image {
+  width: 100%;
+}
