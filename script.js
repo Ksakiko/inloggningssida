@@ -1,4 +1,5 @@
 const mainContainer = document.getElementById("main");
+let login = false;
 
 // Login From
 
@@ -26,6 +27,8 @@ submitButtonEl.setAttribute("form", "login-form");
 submitButtonEl.classList.add("form-submit");
 submitButtonEl.innerText = "Logga in";
 
+submitButtonEl.addEventListener("click", (event) => handleSubmit(event));
+
 formEl.appendChild(usernameInputEl);
 formEl.appendChild(passwordInputEl);
 formEl.appendChild(submitButtonEl);
@@ -41,34 +44,61 @@ const handleSubmit = (event) => {
     passwordInputEl.value === registeredPassword
   ) {
     console.log("login");
+    login = true;
   }
 };
 
-submitButtonEl.addEventListener("click", (event) => handleSubmit(event));
-
 // Login Page
 
-const loginPage = document.createElement("div");
-loginPage.classList.add("login-page");
+// const loginPage = document.createElement("div");
+// loginPage.classList.add("login-page");
 
-const loginPageTitle = document.createElement("h1");
-loginPageTitle.classList.add("login-page__title");
-loginPageTitle.innerText = "Logga In";
+// const loginPageTitle = document.createElement("h1");
+// loginPageTitle.classList.add("login-page__title");
+// loginPageTitle.innerText = "Logga In";
 
-const loginFormContainer = document.createElement("section");
-loginFormContainer.classList.add("login-page__form");
+// const loginFormContainer = document.createElement("section");
+// loginFormContainer.classList.add("login-page__form");
 
-const loginPageHero = document.createElement("section");
-loginPageHero.classList.add("login-page__hero");
+// const loginPageHero = document.createElement("section");
+// loginPageHero.classList.add("login-page__hero");
 
-const heroImage = document.createElement("img");
-heroImage.classList.add("login-page__hero-image");
-heroImage.setAttribute("src", "images/hero.jpg");
+// const heroImage = document.createElement("img");
+// heroImage.classList.add("login-page__hero-image");
+// heroImage.setAttribute("src", "images/hero.jpg");
 
-loginFormContainer.appendChild(loginPageTitle);
-loginFormContainer.appendChild(formEl);
-loginPageHero.appendChild(heroImage);
-loginPage.appendChild(loginFormContainer);
-loginPage.appendChild(loginPageHero);
+// loginFormContainer.appendChild(loginPageTitle);
+// loginFormContainer.appendChild(formEl);
+// loginPageHero.appendChild(heroImage);
+// loginPage.appendChild(loginFormContainer);
+// loginPage.appendChild(loginPageHero);
 
-mainContainer.appendChild(loginPage);
+// mainContainer.appendChild(loginPage);
+
+// Welcome Page
+
+const welcomePage = document.createElement("div");
+welcomePage.classList.add("welcome-page");
+
+const headerEl = document.createElement("header");
+headerEl.classList.add("header");
+
+const headerLogInOutButton = document.createElement("button");
+headerLogInOutButton.classList.add("header__logout-button");
+if (login) {
+  headerLogInOutButton.innerText = "Logga ut";
+} else {
+  headerLogInOutButton.innerText = "Logga in";
+}
+
+const welcomePageInner = document.createElement("section");
+welcomePageInner.classList.add("welcome-page__inner");
+const welcomePageTitle = document.createElement("h1");
+welcomePageTitle.innerText = "Välkommen!";
+welcomePageInner.appendChild(welcomePageTitle);
+
+headerEl.appendChild(headerLogInOutButton);
+welcomePage.appendChild(headerEl);
+welcomePage.appendChild(welcomePageInner);
+
+mainContainer.appendChild(welcomePage);
