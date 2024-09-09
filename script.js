@@ -1,6 +1,7 @@
 const mainContainer = document.getElementById("main");
 const registeredUserName = "test";
 const registeredPassword = "1234";
+const usernameInputEl = document.createElement("input");
 
 const handleLogout = () => {
   // TODO: Clear localStorage
@@ -18,7 +19,6 @@ const formEl = document.createElement("form");
 formEl.setAttribute("id", "login-form");
 formEl.classList.add("form");
 
-const usernameInputEl = document.createElement("input");
 usernameInputEl.setAttribute("id", "username");
 usernameInputEl.setAttribute("type", "text");
 usernameInputEl.setAttribute("name", "username");
@@ -74,13 +74,13 @@ const showLoginPage = () => {
   const loginPageHero = document.createElement("section");
   loginPageHero.classList.add("login-page__hero");
 
-  const heroImage = document.createElement("img");
-  heroImage.classList.add("login-page__hero-image");
-  heroImage.setAttribute("src", "images/hero.jpg");
+  const heroImageEl = document.createElement("img");
+  heroImageEl.classList.add("login-page__hero-image");
+  heroImageEl.setAttribute("src", "images/hero.jpg");
 
   loginFormContainer.appendChild(loginPageTitle);
   loginFormContainer.appendChild(formEl);
-  loginPageHero.appendChild(heroImage);
+  loginPageHero.appendChild(heroImageEl);
   loginPage.appendChild(loginFormContainer);
   loginPage.appendChild(loginPageHero);
 
@@ -102,12 +102,28 @@ const showWelcomePage = () => {
   headerLogoutButton.innerText = "Logga ut";
   headerLogoutButton.addEventListener("click", handleLogout);
 
-  const welcomePageInner = document.createElement("section");
+  const welcomePageInner = document.createElement("div");
   welcomePageInner.classList.add("welcome-page__inner");
   const welcomePageTitle = document.createElement("h1");
-  welcomePageTitle.innerText = "Välkommen!";
-  welcomePageInner.appendChild(welcomePageTitle);
+  welcomePageTitle.classList.add("welcome-page__title");
+  welcomePageTitle.innerText = "Välkommen " + usernameInputEl.value + "!";
 
+  const welcomePageContents = document.createElement("div");
+  welcomePageContents.classList.add("welcome-page__contents");
+
+  const welcomePageMessage = document.createElement("section");
+  welcomePageMessage.classList.add("welcome-page__message");
+  welcomePageMessage.innerHTML = "<p>Här välkomnas du!</p>";
+
+  const welcomePageProfile = document.createElement("section");
+  welcomePageProfile.classList.add("welcome-page__profile");
+  welcomePageProfile.innerHTML =
+    "<img src='images/welcome.jpg' alt='En gul ankunge' class='welcome-page__profile-image' />";
+
+  welcomePageContents.appendChild(welcomePageMessage);
+  welcomePageContents.appendChild(welcomePageProfile);
+  welcomePageInner.appendChild(welcomePageTitle);
+  welcomePageInner.appendChild(welcomePageContents);
   headerEl.appendChild(headerLogoutButton);
   welcomePage.appendChild(headerEl);
   welcomePage.appendChild(welcomePageInner);
@@ -135,12 +151,16 @@ const showErrorPage = () => {
   headerLoginButton.innerText = "Logga in";
   headerLoginButton.addEventListener("click", handleReturnToLogin);
 
-  const errorPageInner = document.createElement("section");
+  const errorPageInner = document.createElement("div");
   errorPageInner.classList.add("error-page__inner");
 
   const errorPageTitle = document.createElement("h1");
   errorPageTitle.classList.add("error-page__title");
   errorPageTitle.innerText = "Något gick fel!";
+
+  const errorPageDescription = document.createElement("p");
+  errorPageDescription.classList.add("error-page__description");
+  errorPageDescription.innerText = "Dina uppgifter är felaktiga.";
 
   const errorPageReturnButton = document.createElement("button");
   errorPageReturnButton.classList.add("error-page__return-button");
@@ -148,6 +168,7 @@ const showErrorPage = () => {
   errorPageReturnButton.addEventListener("click", handleReturnToLogin);
 
   errorPageInner.appendChild(errorPageTitle);
+  errorPageInner.appendChild(errorPageDescription);
   errorPageInner.appendChild(errorPageReturnButton);
 
   headerEl.appendChild(headerLoginButton);
