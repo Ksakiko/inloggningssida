@@ -1,8 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  display: block;
+}
+
+h1 {
+  margin: 0;
+  font-size: 40px;
+}
+
+button {
+  border: none;
+  background-color: #fbf163;
+  /* background-color: #1bada8; */
+  color: #392a07;
+  /* color: #fff; */
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
 .login-page {
+  background-color: #ffffff;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  /* background-color: rgb(222, 236, 239); */
+}
+
+.login-page__title {
+  margin-bottom: 2.5rem;
+}
+
+.login-page__form {
+  margin: auto;
+  width: 300px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.form-input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #b9b9b9;
+  background-color: inherit;
+  font-family: "Montserrat", sans-serif;
+  outline: none;
+}
+
+.form-submit {
+  padding: 14px;
+}
+
+.login-page__hero {
+  height: 100%;
+  width: 100%;
 }
 
 .login-page__hero-image {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header {
+  /* background-color: #392a07; temp */
+  background-color: #ebe8dd; /*temp*/
+  height: 55px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 4px 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header__login-button,
+.header__logout-button {
+  padding: 10px 12px;
+}
+
+.header__logout-button {
+  background-color: inherit;
+  /* border: 1px solid #fff; */
+  border: 1px solid #392a07;
+  /* color: #fff; */
+  color: #392a07;
+}
+
+.welcome-page {
+  min-height: 500px;
+}
+
+.welcome-page__inner,
+.error-page__inner {
+  margin-top: 55px;
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.error-page__title {
+  margin-bottom: 2rem;
+}
+
+.error-page__description {
+  margin-bottom: 3rem;
+}
+
+.error-page__return-button {
+  background-color: inherit;
+  border-radius: 0;
+  padding: 0 0 4px 0;
+  border-bottom: 2px solid #fbf163;
 }
