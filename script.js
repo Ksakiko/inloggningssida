@@ -139,6 +139,7 @@ const showErrorPage = () => {
   errorPageInner.classList.add("error-page__inner");
 
   const errorPageTitle = document.createElement("h1");
+  errorPageTitle.classList.add("error-page__title");
   errorPageTitle.innerText = "Något gick fel!";
 
   const errorPageReturnButton = document.createElement("button");
