@@ -2,47 +2,22 @@ const root = document.getElementById("root");
 const registeredUserName = "test";
 const registeredPassword = "1234";
 const usernameInputEl = document.createElement("input");
-
-const handleLogout = () => {
-  // TODO: Clear localStorage
-  createLoginPage();
-};
+const passwordInputEl = document.createElement("input");
+let login = false;
 
 const handleLogin = () => {
   // TODO: Set localStorage
   createWelcomePage();
 };
 
-// Login From
+const handleLogout = () => {
+  // TODO: Clear localStorage
+  createLoginPage();
+};
 
-const formEl = document.createElement("form");
-formEl.setAttribute("id", "login-form");
-formEl.classList.add("form");
-
-usernameInputEl.setAttribute("id", "username");
-usernameInputEl.setAttribute("type", "text");
-usernameInputEl.setAttribute("name", "username");
-usernameInputEl.setAttribute("placeholder", "Användarnamn");
-usernameInputEl.classList.add("form-input");
-
-const passwordInputEl = document.createElement("input");
-passwordInputEl.setAttribute("id", "password");
-passwordInputEl.setAttribute("type", "password");
-passwordInputEl.setAttribute("name", "password");
-passwordInputEl.setAttribute("placeholder", "Lösenord");
-passwordInputEl.classList.add("form-input");
-
-const submitButtonEl = document.createElement("button");
-submitButtonEl.setAttribute("type", "submit");
-submitButtonEl.setAttribute("form", "login-form");
-submitButtonEl.classList.add("form-submit");
-submitButtonEl.innerText = "Logga in";
-
-submitButtonEl.addEventListener("click", (event) => handleSubmit(event));
-
-formEl.appendChild(usernameInputEl);
-formEl.appendChild(passwordInputEl);
-formEl.appendChild(submitButtonEl);
+const returnToLogin = () => {
+  createLoginPage();
+};
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -57,9 +32,31 @@ const handleSubmit = (event) => {
   }
 };
 
-// Login Page
+// ---------- Welcome Page ---------- //
+
+const createHeader = () => {
+  const headerEl = document.createElement("header");
+  headerEl.classList.add("header");
+  const headerLogInOutButton = document.createElement("button");
+
+  if (login) {
+    headerLogInOutButton.classList.add("header__logout-button");
+    headerLogInOutButton.innerText = "Logga ut";
+    headerLogInOutButton.addEventListener("click", handleLogout);
+  } else {
+    headerLogInOutButton.classList.add("header__login-button");
+    headerLogInOutButton.innerText = "Logga in";
+    headerLogInOutButton.addEventListener("click", returnToLogin);
+  }
+
+  headerEl.appendChild(headerLogInOutButton);
+  root.insertAdjacentElement("afterbegin", headerEl);
+};
+
+// ---------- Login Page ---------- //
 
 const createLoginPage = () => {
+  login = false;
   root.innerHTML = "";
   const loginPage = document.createElement("div");
   loginPage.classList.add("login-page");
@@ -82,6 +79,38 @@ const createLoginPage = () => {
   const heroOverlay = document.createElement("div");
   heroOverlay.classList.add("login-page__hero-overlay");
 
+  // Create Login From
+
+  const formEl = document.createElement("form");
+  formEl.setAttribute("id", "login-form");
+  formEl.classList.add("form");
+
+  usernameInputEl.setAttribute("id", "username");
+  usernameInputEl.setAttribute("type", "text");
+  usernameInputEl.setAttribute("name", "username");
+  usernameInputEl.setAttribute("placeholder", "Användarnamn");
+  usernameInputEl.classList.add("form-input");
+
+  passwordInputEl.setAttribute("id", "password");
+  passwordInputEl.setAttribute("type", "password");
+  passwordInputEl.setAttribute("name", "password");
+  passwordInputEl.setAttribute("placeholder", "Lösenord");
+  passwordInputEl.classList.add("form-input");
+
+  const submitButtonEl = document.createElement("button");
+  submitButtonEl.setAttribute("type", "submit");
+  submitButtonEl.setAttribute("form", "login-form");
+  submitButtonEl.classList.add("form-submit");
+  submitButtonEl.innerText = "Logga in";
+
+  submitButtonEl.addEventListener("click", (event) => handleSubmit(event));
+
+  formEl.appendChild(usernameInputEl);
+  formEl.appendChild(passwordInputEl);
+  formEl.appendChild(submitButtonEl);
+
+  // Append elements
+
   loginFormContainer.appendChild(loginPageTitle);
   loginFormContainer.appendChild(formEl);
   loginPageHero.appendChild(heroImageEl);
@@ -92,20 +121,15 @@ const createLoginPage = () => {
   root.appendChild(loginPage);
 };
 
-// Welcome Page
+// ---------- Welcome Page ---------- //
 
 const createWelcomePage = () => {
+  login = true;
   root.innerHTML = "";
   const welcomePage = document.createElement("div");
   welcomePage.classList.add("welcome-page");
 
-  const headerEl = document.createElement("header");
-  headerEl.classList.add("header");
-
-  const headerLogoutButton = document.createElement("button");
-  headerLogoutButton.classList.add("header__logout-button");
-  headerLogoutButton.innerText = "Logga ut";
-  headerLogoutButton.addEventListener("click", handleLogout);
+  // createHeader();
 
   const welcomePageInner = document.createElement("div");
   welcomePageInner.classList.add("welcome-page__inner");
@@ -129,32 +153,22 @@ const createWelcomePage = () => {
   welcomePageContents.appendChild(welcomePageProfile);
   welcomePageInner.appendChild(welcomePageTitle);
   welcomePageInner.appendChild(welcomePageContents);
-  headerEl.appendChild(headerLogoutButton);
-  welcomePage.appendChild(headerEl);
   welcomePage.appendChild(welcomePageInner);
 
   root.appendChild(welcomePage);
+  createHeader();
 };
 
-// Error Page
+// ---------- Error Page ---------- //
 
 const createErrorPage = () => {
+  login = false;
   root.innerHTML = "";
-
-  const handleReturnToLogin = () => {
-    createLoginPage();
-  };
 
   const errorPage = document.createElement("div");
   errorPage.classList.add("error-page");
 
-  const headerEl = document.createElement("header");
-  headerEl.classList.add("header");
-
-  const headerLoginButton = document.createElement("button");
-  headerLoginButton.classList.add("header__login-button");
-  headerLoginButton.innerText = "Logga in";
-  headerLoginButton.addEventListener("click", handleReturnToLogin);
+  createHeader();
 
   const errorPageInner = document.createElement("div");
   errorPageInner.classList.add("error-page__inner");
@@ -170,14 +184,12 @@ const createErrorPage = () => {
   const errorPageReturnButton = document.createElement("button");
   errorPageReturnButton.classList.add("error-page__return-button");
   errorPageReturnButton.innerText = "Försöka logga in igen";
-  errorPageReturnButton.addEventListener("click", handleReturnToLogin);
+  errorPageReturnButton.addEventListener("click", returnToLogin);
 
   errorPageInner.appendChild(errorPageTitle);
   errorPageInner.appendChild(errorPageDescription);
   errorPageInner.appendChild(errorPageReturnButton);
 
-  headerEl.appendChild(headerLoginButton);
-  errorPage.appendChild(headerEl);
   errorPage.appendChild(errorPageInner);
 
   root.appendChild(errorPage);
