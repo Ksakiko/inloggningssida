@@ -3,7 +3,8 @@ const registeredUserName = "test";
 const registeredPassword = "1234";
 const usernameInputEl = document.createElement("input");
 const passwordInputEl = document.createElement("input");
-let login = false;
+let isLoggedIn = false;
+let isLoginPage = false;
 
 const handleLogin = () => {
   // TODO: Set localStorage
@@ -32,14 +33,28 @@ const handleSubmit = (event) => {
   }
 };
 
-// ---------- Welcome Page ---------- //
+// -------------------- Header -------------------- //
 
 const createHeader = () => {
   const headerEl = document.createElement("header");
-  headerEl.classList.add("header");
+
+  if (isLoginPage) {
+    headerEl.classList.add("header");
+    headerEl.classList.add("header--login");
+  } else {
+    headerEl.classList.add("header");
+  }
+
+  const navEl = document.createElement("nav");
+  navEl.classList.add("nav");
+
+  const logo = document.createElement("span");
+  logo.setAttribute("id", "logo");
+  logo.innerText = "AnkInc.";
+
   const headerLogInOutButton = document.createElement("button");
 
-  if (login) {
+  if (isLoggedIn) {
     headerLogInOutButton.classList.add("header__logout-button");
     headerLogInOutButton.innerText = "Logga ut";
     headerLogInOutButton.addEventListener("click", handleLogout);
@@ -49,15 +64,19 @@ const createHeader = () => {
     headerLogInOutButton.addEventListener("click", returnToLogin);
   }
 
-  headerEl.appendChild(headerLogInOutButton);
+  navEl.appendChild(logo);
+  navEl.appendChild(headerLogInOutButton);
+  headerEl.appendChild(navEl);
   root.insertAdjacentElement("afterbegin", headerEl);
 };
 
-// ---------- Login Page ---------- //
+// -------------------- Login Page -------------------- //
 
 const createLoginPage = () => {
-  login = false;
+  isLoggedIn = false;
+  isLoginPage = true;
   root.innerHTML = "";
+  createHeader();
   const loginPage = document.createElement("div");
   loginPage.classList.add("login-page");
 
@@ -121,21 +140,23 @@ const createLoginPage = () => {
   root.appendChild(loginPage);
 };
 
-// ---------- Welcome Page ---------- //
+// -------------------- Welcome Page -------------------- //
 
 const createWelcomePage = () => {
-  login = true;
+  isLoggedIn = true;
+  isLoginPage = false;
+
   root.innerHTML = "";
   const welcomePage = document.createElement("div");
   welcomePage.classList.add("welcome-page");
 
-  // createHeader();
+  createHeader();
 
   const welcomePageInner = document.createElement("div");
   welcomePageInner.classList.add("welcome-page__inner");
   const welcomePageTitle = document.createElement("h1");
   welcomePageTitle.classList.add("welcome-page__title");
-  welcomePageTitle.innerText = "Välkommen " + usernameInputEl.value + "!";
+  welcomePageTitle.innerText = "Välkommen, " + usernameInputEl.value + "!";
 
   const welcomePageContents = document.createElement("div");
   welcomePageContents.classList.add("welcome-page__contents");
@@ -156,13 +177,14 @@ const createWelcomePage = () => {
   welcomePage.appendChild(welcomePageInner);
 
   root.appendChild(welcomePage);
-  createHeader();
 };
 
-// ---------- Error Page ---------- //
+// -------------------- Error Page -------------------- //
 
 const createErrorPage = () => {
-  login = false;
+  isLoggedIn = false;
+  isLoginPage = false;
+
   root.innerHTML = "";
 
   const errorPage = document.createElement("div");
