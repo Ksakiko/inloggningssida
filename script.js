@@ -1,16 +1,16 @@
-const mainContainer = document.getElementById("main");
+const root = document.getElementById("root");
 const registeredUserName = "test";
 const registeredPassword = "1234";
 const usernameInputEl = document.createElement("input");
 
 const handleLogout = () => {
   // TODO: Clear localStorage
-  showLoginPage();
+  createLoginPage();
 };
 
 const handleLogin = () => {
   // TODO: Set localStorage
-  showWelcomePage();
+  createWelcomePage();
 };
 
 // Login From
@@ -53,14 +53,14 @@ const handleSubmit = (event) => {
   ) {
     handleLogin();
   } else {
-    showErrorPage();
+    createErrorPage();
   }
 };
 
 // Login Page
 
-const showLoginPage = () => {
-  mainContainer.innerHTML = "";
+const createLoginPage = () => {
+  root.innerHTML = "";
   const loginPage = document.createElement("div");
   loginPage.classList.add("login-page");
 
@@ -77,20 +77,25 @@ const showLoginPage = () => {
   const heroImageEl = document.createElement("img");
   heroImageEl.classList.add("login-page__hero-image");
   heroImageEl.setAttribute("src", "images/hero.jpg");
+  heroImageEl.setAttribute("alt", "En ankunge simmar");
+
+  const heroOverlay = document.createElement("div");
+  heroOverlay.classList.add("login-page__hero-overlay");
 
   loginFormContainer.appendChild(loginPageTitle);
   loginFormContainer.appendChild(formEl);
   loginPageHero.appendChild(heroImageEl);
+  loginPageHero.appendChild(heroOverlay);
   loginPage.appendChild(loginFormContainer);
   loginPage.appendChild(loginPageHero);
 
-  mainContainer.appendChild(loginPage);
+  root.appendChild(loginPage);
 };
 
 // Welcome Page
 
-const showWelcomePage = () => {
-  mainContainer.innerHTML = "";
+const createWelcomePage = () => {
+  root.innerHTML = "";
   const welcomePage = document.createElement("div");
   welcomePage.classList.add("welcome-page");
 
@@ -118,7 +123,7 @@ const showWelcomePage = () => {
   const welcomePageProfile = document.createElement("section");
   welcomePageProfile.classList.add("welcome-page__profile");
   welcomePageProfile.innerHTML =
-    "<img src='images/welcome.jpg' alt='En gul ankunge' class='welcome-page__profile-image' />";
+    "<img src='images/welcome.jpg' alt='En ankunge sitter på marken' class='welcome-page__profile-image' />";
 
   welcomePageContents.appendChild(welcomePageMessage);
   welcomePageContents.appendChild(welcomePageProfile);
@@ -128,16 +133,16 @@ const showWelcomePage = () => {
   welcomePage.appendChild(headerEl);
   welcomePage.appendChild(welcomePageInner);
 
-  mainContainer.appendChild(welcomePage);
+  root.appendChild(welcomePage);
 };
 
 // Error Page
 
-const showErrorPage = () => {
-  mainContainer.innerHTML = "";
+const createErrorPage = () => {
+  root.innerHTML = "";
 
   const handleReturnToLogin = () => {
-    showLoginPage();
+    createLoginPage();
   };
 
   const errorPage = document.createElement("div");
@@ -175,7 +180,7 @@ const showErrorPage = () => {
   errorPage.appendChild(headerEl);
   errorPage.appendChild(errorPageInner);
 
-  mainContainer.appendChild(errorPage);
+  root.appendChild(errorPage);
 };
 
-showLoginPage();
+createLoginPage();
