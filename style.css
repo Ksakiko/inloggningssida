@@ -5,7 +5,8 @@
 html,
 body,
 div,
-section {
+section,
+figure {
   margin: 0;
   padding: 0;
   border: 0;
@@ -24,18 +25,65 @@ img {
 
 h1 {
   margin: 0;
-  font-size: 40px;
+  font-size: 2rem;
+  color: #2d2d2d;
 }
 
 button {
   border: none;
   background-color: #fbf163;
-  color: #392a07;
+  color: #5e5543;
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 500;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.header {
+  background-color: #ebe8dd;
+  height: 55px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  padding: 4px 40px;
+  display: flex;
+  align-items: center;
+}
+
+.header--login {
+  background-color: transparent;
+}
+
+.header--login button {
+  display: none;
+}
+
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logo {
+  font-size: 40px;
+  font-family: "Nerko One", cursive;
+  font-weight: 400;
+  color: #464220;
+}
+
+.header__login-button,
+.header__logout-button {
+  padding: 10px 12px;
+}
+
+.header__logout-button {
+  background-color: transparent;
+  border: 1px solid #5e5543;
 }
 
 .main {
@@ -48,8 +96,6 @@ button {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  /* grid-template-columns: repeat(2, minmax(400px, 1fr)); */
-  /* background-color: rgb(222, 236, 239); */
 }
 
 .login-page__title {
@@ -64,7 +110,7 @@ button {
   justify-content: center;
   align-items: center;
   min-width: 250px;
-  margin: 2rem;
+  margin: 4rem 2rem 2rem 2rem;
 }
 
 .form {
@@ -106,33 +152,6 @@ button {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.header {
-  /* background-color: #392a07; temp */
-  background-color: #ebe8dd; /*temp*/
-  height: 55px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 4px 40px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.header__login-button,
-.header__logout-button {
-  padding: 10px 12px;
-}
-
-.header__logout-button {
-  background-color: inherit;
-  /* border: 1px solid #fff; */
-  border: 1px solid #392a07;
-  /* color: #fff; */
-  color: #392a07;
-}
-
 .welcome-page {
   min-height: 600px; /* temp */
 }
@@ -142,12 +161,19 @@ button {
 }
 
 .welcome-page__contents {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
+  gap: 2rem;
+}
+
+.welcome-page__message {
+  flex: 1;
+  margin-right: 2rem;
 }
 
 .welcome-page__profile {
+  flex: 1;
   width: 100%;
   height: 500px;
   border-radius: 15px;
@@ -155,11 +181,13 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 
 .welcome-page__profile-image {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 100%;
   transform: rotateY(180deg);
 }
@@ -167,9 +195,36 @@ button {
 .welcome-page__inner,
 .error-page__inner {
   margin-top: 55px;
-  padding-top: 40px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 40px;
+}
+
+.error-page__inner {
+  display: flex;
+}
+
+.error-page__contents {
+  flex: 1;
+}
+
+.error-page__image-container {
+  flex: 2;
+  height: calc(100vh - 140px);
+  border-radius: 0 20px 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.error-page__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
 }
 
 .error-page__title {
