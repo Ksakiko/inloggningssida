@@ -105,9 +105,6 @@ const createLoginPage = () => {
   heroImageEl.setAttribute("src", "images/hero.jpg");
   heroImageEl.setAttribute("alt", "En ankunge simmar");
 
-  const heroOverlay = document.createElement("div");
-  heroOverlay.classList.add("login-page__hero-overlay");
-
   // Create Login From
 
   const formEl = document.createElement("form");
@@ -143,7 +140,6 @@ const createLoginPage = () => {
   loginFormContainer.appendChild(loginPageTitle);
   loginFormContainer.appendChild(formEl);
   loginPageHero.appendChild(heroImageEl);
-  loginPageHero.appendChild(heroOverlay);
   loginPage.appendChild(loginFormContainer);
   loginPage.appendChild(loginPageHero);
 
@@ -219,8 +215,8 @@ const createErrorPage = () => {
   errorPageImage.innerHTML =
     "<img src='images/error.jpg' alt='Många gummiankor' class='error-page__image' />";
 
-  const errorOverlay = document.createElement("div");
-  errorOverlay.classList.add("error-page__overlay");
+  // const errorOverlay = document.createElement("div");
+  // errorOverlay.classList.add("error-page__overlay");
 
   const errorPageTitle = document.createElement("h1");
   errorPageTitle.classList.add("error-page__title");
@@ -239,7 +235,7 @@ const createErrorPage = () => {
   errorPageContents.appendChild(errorPageDescription);
   errorPageContents.appendChild(errorPageReturnButton);
 
-  errorPageImage.insertAdjacentElement("beforeend", errorOverlay);
+  // errorPageImage.insertAdjacentElement("beforeend", errorOverlay);
   errorPageInner.appendChild(errorPageContents);
   errorPageInner.appendChild(errorPageImage);
   errorPage.appendChild(errorPageInner);
