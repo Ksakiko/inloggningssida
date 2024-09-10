@@ -87,7 +87,7 @@ const createLoginPage = () => {
   isLoginPage = true;
   root.innerHTML = "";
   createHeader();
-  const loginPage = document.createElement("div");
+  const loginPage = document.createElement("main");
   loginPage.classList.add("login-page");
 
   const loginPageTitle = document.createElement("h1");
@@ -157,7 +157,7 @@ const createWelcomePage = () => {
   isLoginPage = false;
 
   root.innerHTML = "";
-  const welcomePage = document.createElement("div");
+  const welcomePage = document.createElement("main");
   welcomePage.classList.add("welcome-page");
 
   createHeader();
@@ -179,7 +179,7 @@ const createWelcomePage = () => {
 
   const welcomePageMessage = document.createElement("section");
   welcomePageMessage.classList.add("welcome-page__message");
-  welcomePageMessage.innerHTML = "<p>Här välkomnas du!</p>";
+  welcomePageMessage.innerHTML = "<p>Här välkomnas du av en snäll anka!</p>";
 
   const welcomePageProfile = document.createElement("section");
   welcomePageProfile.classList.add("welcome-page__profile");
@@ -203,7 +203,7 @@ const createErrorPage = () => {
 
   root.innerHTML = "";
 
-  const errorPage = document.createElement("div");
+  const errorPage = document.createElement("main");
   errorPage.classList.add("error-page");
 
   createHeader();
@@ -211,9 +211,20 @@ const createErrorPage = () => {
   const errorPageInner = document.createElement("div");
   errorPageInner.classList.add("error-page__inner");
 
+  const errorPageContents = document.createElement("section");
+  errorPageContents.classList.add("error-page__contents");
+
+  const errorPageImage = document.createElement("figure");
+  errorPageImage.classList.add("error-page__image-container");
+  errorPageImage.innerHTML =
+    "<img src='images/error.jpg' alt='Många gummiankor' class='error-page__image' />";
+
+  const errorOverlay = document.createElement("div");
+  errorOverlay.classList.add("error-page__overlay");
+
   const errorPageTitle = document.createElement("h1");
   errorPageTitle.classList.add("error-page__title");
-  errorPageTitle.innerText = "Något gick fel!";
+  errorPageTitle.innerText = "Något gick fel...";
 
   const errorPageDescription = document.createElement("p");
   errorPageDescription.classList.add("error-page__description");
@@ -224,10 +235,13 @@ const createErrorPage = () => {
   errorPageReturnButton.innerText = "Försöka logga in igen";
   errorPageReturnButton.addEventListener("click", returnToLogin);
 
-  errorPageInner.appendChild(errorPageTitle);
-  errorPageInner.appendChild(errorPageDescription);
-  errorPageInner.appendChild(errorPageReturnButton);
+  errorPageContents.appendChild(errorPageTitle);
+  errorPageContents.appendChild(errorPageDescription);
+  errorPageContents.appendChild(errorPageReturnButton);
 
+  errorPageImage.insertAdjacentElement("beforeend", errorOverlay);
+  errorPageInner.appendChild(errorPageContents);
+  errorPageInner.appendChild(errorPageImage);
   errorPage.appendChild(errorPageInner);
 
   root.appendChild(errorPage);
