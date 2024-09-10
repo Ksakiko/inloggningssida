@@ -6,13 +6,23 @@ const passwordInputEl = document.createElement("input");
 let isLoggedIn = false;
 let isLoginPage = false;
 
+const renderPage = () => {
+  const storedUserInfo = localStorage.getItem("username");
+
+  if (storedUserInfo === registeredUserName) {
+    createWelcomePage();
+  } else {
+    createLoginPage();
+  }
+};
+
 const handleLogin = () => {
-  // TODO: Set localStorage
+  localStorage.setItem("username", usernameInputEl.value);
   createWelcomePage();
 };
 
 const handleLogout = () => {
-  // TODO: Clear localStorage
+  localStorage.removeItem("username");
   createLoginPage();
 };
 
@@ -156,7 +166,13 @@ const createWelcomePage = () => {
   welcomePageInner.classList.add("welcome-page__inner");
   const welcomePageTitle = document.createElement("h1");
   welcomePageTitle.classList.add("welcome-page__title");
-  welcomePageTitle.innerText = "Välkommen, " + usernameInputEl.value + "!";
+
+  const storedUserInfo = localStorage.getItem("username");
+  if (storedUserInfo) {
+    welcomePageTitle.innerText = "Välkommen, " + storedUserInfo + "!";
+  } else {
+    welcomePageTitle.innerText = "Välkommen, " + usernameInputEl.value + "!";
+  }
 
   const welcomePageContents = document.createElement("div");
   welcomePageContents.classList.add("welcome-page__contents");
@@ -217,4 +233,4 @@ const createErrorPage = () => {
   root.appendChild(errorPage);
 };
 
-createLoginPage();
+renderPage();
