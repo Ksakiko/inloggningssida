@@ -1,14 +1,18 @@
 const root = document.getElementById("root");
 const registeredUserName = "test";
 const registeredPassword = "1234";
-const usernameInputEl = document.createElement("input");
-const passwordInputEl = document.createElement("input");
-let isLoggedIn = false;
-let isLoginPage = false;
+const usernameInputEl = document.createElement("input"); // <= | These two variables are not placed in any functions   |
+const passwordInputEl = document.createElement("input"); // <= | so that all the functions can access to them.         |
 
+let isLoggedIn = false; // Status for user is logged in
+let isLoginPage = false; // Status for if Login Page is selected/displayed or not
+
+// Render a selected page
 const renderPage = () => {
+  // Get stored username info from localStorage
   const storedUserInfo = localStorage.getItem("username");
 
+  // If stored username exists and matches to the registered username, render Welcome Page, otherwise Login Page
   if (storedUserInfo === registeredUserName) {
     createWelcomePage();
   } else {
@@ -17,22 +21,27 @@ const renderPage = () => {
 };
 
 const handleLogin = () => {
+  // Set given username to localStorage and render Welcome Page
   localStorage.setItem("username", usernameInputEl.value);
   createWelcomePage();
 };
 
 const handleLogout = () => {
+  // Remove stored username from localStorage and render Login Page
   localStorage.removeItem("username");
   createLoginPage();
 };
 
 const returnToLogin = () => {
+  // Render Login Page
   createLoginPage();
 };
 
 const handleSubmit = (event) => {
+  // Prevent the form(form tag) from submitting, which is the default action of form tag
   event.preventDefault();
 
+  // If user's input values match to user's registered info, render Welcome Page via handleLogin(), otherwise render Error Page
   if (
     usernameInputEl.value === registeredUserName &&
     passwordInputEl.value === registeredPassword
@@ -48,6 +57,7 @@ const handleSubmit = (event) => {
 const createHeader = () => {
   const headerEl = document.createElement("header");
 
+  // If Login Page is selected/rendered, header gets modified CSS for its design, otherwise normal
   if (isLoginPage) {
     headerEl.classList.add("header");
     headerEl.classList.add("header--login");
@@ -64,6 +74,7 @@ const createHeader = () => {
 
   const headerLogInOutButton = document.createElement("button");
 
+  // Determine menu button's design, text, and function depending on either the user is logged in or not
   if (isLoggedIn) {
     headerLogInOutButton.classList.add("header__logout-button");
     headerLogInOutButton.innerText = "Logga ut";
@@ -85,8 +96,11 @@ const createHeader = () => {
 const createLoginPage = () => {
   isLoggedIn = false;
   isLoginPage = true;
+
   root.innerHTML = "";
+
   createHeader();
+
   const loginPage = document.createElement("main");
   loginPage.classList.add("login-page");
 
@@ -164,6 +178,8 @@ const createWelcomePage = () => {
   welcomePageTitle.classList.add("welcome-page__title");
 
   const storedUserInfo = localStorage.getItem("username");
+
+  // If username exists in localStorage, use the username for welcome text, otherwise use the newly input username
   if (storedUserInfo) {
     welcomePageTitle.innerText = "Välkommen, " + storedUserInfo + "!";
   } else {
