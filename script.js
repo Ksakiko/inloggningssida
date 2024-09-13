@@ -1,8 +1,8 @@
 const root = document.getElementById("root");
 const registeredUserName = "test";
 const registeredPassword = "1234";
-const usernameInputEl = document.createElement("input"); // <= | These two variables are not placed in any functions   |
-const passwordInputEl = document.createElement("input"); // <= | so that all the functions can access to them.         |
+const usernameInputEl = document.createElement("input"); // <= | These two variables are placed outside of functions   |
+const passwordInputEl = document.createElement("input"); // <= | so that the functions can have access to them.         |
 
 let isLoggedIn = false; // Status for user is logged in
 let isLoginPage = false; // Status for if Login Page is selected/displayed or not
@@ -97,11 +97,17 @@ const createFooter = () => {
   const footerEl = document.createElement("footer");
   footerEl.classList.add("footer");
 
-  const copyright = document.createElement("span");
+  const copyright = document.createElement("div");
   copyright.classList.add("copyright");
   copyright.innerHTML = "Copyright &copy; 2024 AnkInc.";
 
+  const bgCredit = document.createElement("div");
+  bgCredit.classList.add("bg-credit");
+  bgCredit.innerHTML = `Free SVG Background by <a target="_blank" href="https://bgjar.com">BGJar</a>'`;
+
   footerEl.appendChild(copyright);
+  footerEl.appendChild(bgCredit);
+
   root.appendChild(footerEl);
 };
 
@@ -163,8 +169,6 @@ const createLoginPage = () => {
   formEl.appendChild(passwordInputEl);
   formEl.appendChild(submitButtonEl);
 
-  // Append elements
-
   loginFormContainer.appendChild(loginPageTitle);
   loginFormContainer.appendChild(formEl);
   loginPageHero.appendChild(heroImageEl);
@@ -210,11 +214,15 @@ const createWelcomePage = () => {
   welcomePageProfile.innerHTML =
     "<img src='images/welcome.jpg' alt='En ankunge sitter på marken' class='welcome-page__profile-image' />";
 
+  const bgElement = document.createElement("div");
+  bgElement.classList.add("bgElement");
+
   welcomePageContents.appendChild(welcomePageMessage);
   welcomePageContents.appendChild(welcomePageProfile);
   welcomePageInner.appendChild(welcomePageTitle);
   welcomePageInner.appendChild(welcomePageContents);
   welcomePage.appendChild(welcomePageInner);
+  welcomePage.appendChild(bgElement);
 
   root.appendChild(welcomePage);
   createHeader();
@@ -245,9 +253,6 @@ const createErrorPage = () => {
   errorPageImage.innerHTML =
     "<img src='images/error.jpg' alt='Många gummiankor' class='error-page__image' />";
 
-  // const errorOverlay = document.createElement("div");
-  // errorOverlay.classList.add("error-page__overlay");
-
   const errorPageTitle = document.createElement("h1");
   errorPageTitle.classList.add("error-page__title");
   errorPageTitle.innerText = "Något gick fel...";
@@ -265,7 +270,6 @@ const createErrorPage = () => {
   errorPageContents.appendChild(errorPageDescription);
   errorPageContents.appendChild(errorPageReturnButton);
 
-  // errorPageImage.insertAdjacentElement("beforeend", errorOverlay);
   errorPageInner.appendChild(errorPageContents);
   errorPageInner.appendChild(errorPageImage);
   errorPage.appendChild(errorPageInner);
