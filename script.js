@@ -91,6 +91,20 @@ const createHeader = () => {
   root.insertAdjacentElement("afterbegin", headerEl);
 };
 
+// -------------------- Footer -------------------- //
+
+const createFooter = () => {
+  const footerEl = document.createElement("footer");
+  footerEl.classList.add("footer");
+
+  const copyright = document.createElement("span");
+  copyright.classList.add("copyright");
+  copyright.innerHTML = "Copyright &copy; 2024 AnkInc.";
+
+  footerEl.appendChild(copyright);
+  root.appendChild(footerEl);
+};
+
 // -------------------- Login Page -------------------- //
 
 const createLoginPage = () => {
@@ -170,8 +184,6 @@ const createWelcomePage = () => {
   const welcomePage = document.createElement("main");
   welcomePage.classList.add("welcome-page");
 
-  createHeader();
-
   const welcomePageInner = document.createElement("div");
   welcomePageInner.classList.add("welcome-page__inner");
   const welcomePageTitle = document.createElement("h1");
@@ -205,6 +217,8 @@ const createWelcomePage = () => {
   welcomePage.appendChild(welcomePageInner);
 
   root.appendChild(welcomePage);
+  createHeader();
+  createFooter();
 };
 
 // -------------------- Error Page -------------------- //
@@ -257,6 +271,7 @@ const createErrorPage = () => {
   errorPage.appendChild(errorPageInner);
 
   root.appendChild(errorPage);
+  createFooter();
 };
 
 renderPage();
