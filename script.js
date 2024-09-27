@@ -279,8 +279,6 @@ const renderPage = async () => {
     return user.userLoginName === storedUserInfo;
   });
 
-  console.log(match.length);
-
   if (match.length > 0) {
     userName = match[0].userName;
     createWelcomePage();
