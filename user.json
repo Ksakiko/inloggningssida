@@ -1,0 +1,22 @@
+[
+  {
+    "userName": "Test Testsson",
+    "userLoginName": "test",
+    "userPassword": "1234"
+  },
+  {
+    "userName": "Jane Doe",
+    "userLoginName": "jane",
+    "userPassword": "abcd"
+  },
+  {
+    "userName": "John Doe",
+    "userLoginName": "john",
+    "userPassword": "ab12"
+  },
+  {
+    "userName": "Wrinkle The Duck",
+    "userLoginName": "wrinkle",
+    "userPassword": "human"
+  }
+]

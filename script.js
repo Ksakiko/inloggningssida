@@ -1,23 +1,16 @@
 const root = document.getElementById("root");
-const registeredUserName = "test";
-const registeredPassword = "1234";
 const usernameInputEl = document.createElement("input"); // <= | These two variables are placed outside of functions   |
 const passwordInputEl = document.createElement("input"); // <= | so that the functions can have access to them.         |
 
 let isLoggedIn = false; // Status for user is logged in
 let isLoginPage = false; // Status for if Login Page is selected/displayed or not
 
-// Render a selected page
-const renderPage = () => {
-  // Get stored username info from localStorage
-  const storedUserInfo = localStorage.getItem("username");
+let userName;
 
-  // If stored username exists and matches to the registered username, render Welcome Page, otherwise Login Page
-  if (storedUserInfo === registeredUserName) {
-    createWelcomePage();
-  } else {
-    createLoginPage();
-  }
+const getUsers = async () => {
+  const response = await fetch("user.json");
+  const data = await response.json();
+  return data;
 };
 
 const handleLogin = () => {
@@ -37,15 +30,21 @@ const returnToLogin = () => {
   createLoginPage();
 };
 
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
   // Prevent the form(form tag) from submitting, which is the default action of form tag
   event.preventDefault();
 
+  const registeredUsers = await getUsers();
+  const match = registeredUsers.filter((user) => {
+    return (
+      user.userLoginName === usernameInputEl.value &&
+      user.userPassword === passwordInputEl.value
+    );
+  });
+
   // If user's input values match to user's registered info, render Welcome Page via handleLogin(), otherwise render Error Page
-  if (
-    usernameInputEl.value === registeredUserName &&
-    passwordInputEl.value === registeredPassword
-  ) {
+  if (match) {
+    userName = match[0].userName;
     handleLogin();
   } else {
     createErrorPage();
@@ -183,7 +182,6 @@ const createLoginPage = () => {
 const createWelcomePage = () => {
   isLoggedIn = true;
   isLoginPage = false;
-
   root.innerHTML = "";
   const welcomePage = document.createElement("main");
   welcomePage.classList.add("welcome-page");
@@ -193,14 +191,7 @@ const createWelcomePage = () => {
   const welcomePageTitle = document.createElement("h1");
   welcomePageTitle.classList.add("welcome-page__title");
 
-  const storedUserInfo = localStorage.getItem("username");
-
-  // If username exists in localStorage, use the username for welcome text, otherwise use the newly input username
-  if (storedUserInfo) {
-    welcomePageTitle.innerText = "Välkommen, " + storedUserInfo + "!";
-  } else {
-    welcomePageTitle.innerText = "Välkommen, " + usernameInputEl.value + "!";
-  }
+  welcomePageTitle.innerText = "Välkommen, " + userName + "!";
 
   const welcomePageContents = document.createElement("div");
   welcomePageContents.classList.add("welcome-page__contents");
@@ -276,6 +267,24 @@ const createErrorPage = () => {
 
   root.appendChild(errorPage);
   createFooter();
+};
+
+// Render a selected page
+const renderPage = async () => {
+  // Get stored username info from localStorage
+  const storedUserInfo = localStorage.getItem("username");
+
+  const registeredUsers = await getUsers();
+  const match = registeredUsers.filter((user) => {
+    return user.userLoginName === storedUserInfo;
+  });
+
+  if (match) {
+    userName = match[0].userName;
+    createWelcomePage();
+  } else {
+    createLoginPage();
+  }
 };
 
 renderPage();
