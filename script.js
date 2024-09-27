@@ -8,9 +8,7 @@ let isLoginPage = false; // Status for if Login Page is selected/displayed or no
 let userName;
 
 const getUsers = async () => {
-  const response = await fetch(
-    "https://ksakiko.github.io/inloggningssida/user.json"
-  );
+  const response = await fetch("./user.json");
   const data = await response.json();
   return data;
 };
@@ -45,7 +43,7 @@ const handleSubmit = async (event) => {
   });
 
   // If user's input values match to user's registered info, render Welcome Page via handleLogin(), otherwise render Error Page
-  if (match) {
+  if (match.length > 0) {
     userName = match[0].userName;
     handleLogin();
   } else {
@@ -281,7 +279,9 @@ const renderPage = async () => {
     return user.userLoginName === storedUserInfo;
   });
 
-  if (match) {
+  console.log(match.length);
+
+  if (match.length > 0) {
     userName = match[0].userName;
     createWelcomePage();
   } else {
