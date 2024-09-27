@@ -8,7 +8,9 @@ let isLoginPage = false; // Status for if Login Page is selected/displayed or no
 let userName;
 
 const getUsers = async () => {
-  const response = await fetch("user.json");
+  const response = await fetch(
+    "https://ksakiko.github.io/inloggningssida/user.json"
+  );
   const data = await response.json();
   return data;
 };
